@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proofmark — Quality Gate for AI Responses</title>
+  <meta name="description" content="Score, route, and auto-escalate LLM responses across models. Open-source SDK with 3-tier cost optimization.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x2713;</text></svg>">
+  <script defer data-domain="proofmark.dev" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <nav class="nav">
+      <a href="/" class="nav-logo">proofmark</a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#verticals">Verticals</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://github.com/watthem/proofmark" class="nav-gh">GitHub</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Quality gate for AI responses</h1>
+      <p class="hero-sub">Score every LLM response. Route to the cheapest model that passes. Auto-escalate when quality drops.</p>
+
+      <div class="install-block plausible-event-name=Copy+Install">
+        <code>npm install proofmark</code>
+      </div>
+
+      <div class="escalation-diagram">
+        <div class="tier">
+          <span class="tier-name">MiniMax</span>
+          <span class="tier-cost">$0.001/1K tokens</span>
+        </div>
+        <span class="tier-arrow">&rarr;</span>
+        <div class="tier">
+          <span class="tier-name">OpenAI</span>
+          <span class="tier-cost">$0.01/1K tokens</span>
+        </div>
+        <span class="tier-arrow">&rarr;</span>
+        <div class="tier">
+          <span class="tier-name">Opus</span>
+          <span class="tier-cost">$0.06/1K tokens</span>
+        </div>
+      </div>
+      <p class="escalation-note">First model to pass the gate wins. You pay for the cheapest sufficient answer.</p>
+    </div>
+  </header>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="section">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <h3>Score</h3>
+        <p>Every response gets a quality score from 0.0 to 1.0. Checks XML structure, rubric completeness, injection detection, and more.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <h3>Route</h3>
+        <p>Start with the cheapest model. If it passes the gate threshold, return immediately. No wasted spend on expensive models.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <h3>Escalate</h3>
+        <p>If quality drops below threshold, automatically try the next tier. The caller never sees a bad response.</p>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">router.mjs</div>
+<pre><code>import { createRouter } from "proofmark";
+
+const router = createRouter({
+  openaiKey: process.env.OPENAI_API_KEY,
+  anthropicKey: process.env.ANTHROPIC_API_KEY,
+  minimaxKey: process.env.MINIMAX_API_KEY,
+  promptId: "pmpt_your_stored_prompt"
+});
+
+const result = await router.evaluate("Analyze this SaaS idea");
+// result.provider  → "minimax" | "openai" | "anthropic"
+// result.quality   → 0.82
+// result.escalated → false</code></pre>
+    </div>
+  </section>
+
+  <!-- Quality Gate -->
+  <section id="quality-gate" class="section section-alt">
+    <h2>Quality gate scoring</h2>
+    <p class="section-sub">Composite score: 40% structural + 60% per-response quality</p>
+
+    <div class="scoring-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th>What it catches</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>XML well-formedness</td>
+            <td>Broken tags, unclosed elements, malformed output</td>
+          </tr>
+          <tr>
+            <td>Rubric completeness</td>
+            <td>Missing evaluation dimensions, incomplete scoring</td>
+          </tr>
+          <tr>
+            <td>Probability sanity</td>
+            <td>Scores that violate statistical bounds</td>
+          </tr>
+          <tr>
+            <td>Injection detection</td>
+            <td>Prompt injection attempts in LLM output</td>
+          </tr>
+          <tr>
+            <td>Text length</td>
+            <td>Suspiciously short or truncated responses</td>
+          </tr>
+          <tr>
+            <td>Structural consistency</td>
+            <td>Format drift across repeated calls</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="threshold-callout">
+      <span class="threshold-num">0.70</span>
+      <span class="threshold-text">Default quality threshold. Responses scoring below this trigger automatic escalation to the next model tier.</span>
+    </div>
+  </section>
+
+  <!-- Verticals -->
+  <section id="verticals" class="section">
+    <h2>Verticals</h2>
+    <p class="section-sub">Standalone servers built on the core SDK. Each one imports from proofmark and runs independently.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-port">:8090</div>
+        <h3>Gate</h3>
+        <p>OpenAI-compatible LLM proxy with quality gate. Drop-in replacement for <code>/v1/chat/completions</code> that scores and routes every request.</p>
+      </div>
+      <div class="card">
+        <div class="card-port">:8091</div>
+        <h3>Bench</h3>
+        <p>Prompt A/B testing service. Define experiments with Standard Schema validation, track metrics, and pick winners with statistical confidence.</p>
+      </div>
+      <div class="card">
+        <div class="card-port">:8092</div>
+        <h3>Docs</h3>
+        <p>Documentation quality scoring. Readability analysis, structural checks, and automatic Diataxis classification (Tutorial, Guide, Reference, Explanation).</p>
+      </div>
+      <div class="card">
+        <div class="card-port">:8093</div>
+        <h3>Teach</h3>
+        <p>Pedagogy-aware quality gate. Detects teaching methods (Suzuki, Kodaly, Orff), maps to Bloom's taxonomy, and audits curriculum sequences.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section section-alt">
+    <h2>Pricing</h2>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <ul>
+          <li>Core SDK (MIT)</li>
+          <li>Quality gate scoring</li>
+          <li>3-tier model routing</li>
+          <li>A/B testing framework</li>
+          <li>All verticals (self-hosted)</li>
+        </ul>
+      </div>
+      <div class="pricing-card pricing-highlight plausible-event-name=View+Pro+Pricing">
+        <h3>Pro</h3>
+        <div class="price">$29<span>/mo</span></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>Hosted Gate proxy</li>
+          <li>Dashboard analytics</li>
+          <li>Webhook notifications</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>Everything in Pro</li>
+          <li>Custom model chains</li>
+          <li>SSO / SAML</li>
+          <li>SLA guarantee</li>
+          <li>Dedicated support</li>
+        </ul>
+      </div>
+    </div>
+    <p class="powered-by">Powered by <a href="https://polar.sh">Polar</a></p>
+  </section>
+
+  <!-- Open Source -->
+  <section id="open-source" class="section">
+    <h2>Open source</h2>
+    <div class="oss-content">
+      <p>Proofmark is MIT licensed. The core SDK, quality gate, router, and all verticals are open source.</p>
+      <div class="oss-links">
+        <a href="https://github.com/watthem/proofmark" class="btn plausible-event-name=Click+GitHub">View on GitHub</a>
+        <a href="https://www.npmjs.com/package/proofmark" class="btn btn-outline plausible-event-name=Click+npm">npm package</a>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-value">18</span>
+          <span class="stat-label">Unit tests</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">50</span>
+          <span class="stat-label">Adversarial cases</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">0%</span>
+          <span class="stat-label">Crash rate</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">4</span>
+          <span class="stat-label">Verticals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <span class="footer-logo">proofmark</span>
+        <p>&copy; 2026 Matthew Hendricks. MIT License.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#how-it-works">How it works</a>
+        <a href="#quality-gate">Quality gate</a>
+        <a href="#verticals">Verticals</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://github.com/watthem/proofmark">GitHub</a>
+        <a href="https://www.npmjs.com/package/proofmark">npm</a>
+        <a href="https://github.com/watthem/proofmark/blob/main/README.md">Documentation</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Track scroll-to-pricing as interest signal (fires once)
+    if (window.IntersectionObserver) {
+      var o = new IntersectionObserver(function(e) {
+        if (e[0].isIntersecting) {
+          window.plausible && plausible('Scroll to Pricing');
+          o.disconnect();
+        }
+      }, { threshold: 0.5 });
+      var p = document.getElementById('pricing');
+      if (p) o.observe(p);
+    }
+  </script>
+</body>
+</html>

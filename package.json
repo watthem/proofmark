@@ -1,0 +1,66 @@
+{
+  "name": "proofmark",
+  "version": "0.1.1",
+  "description": "Quality gate for AI responses. Score, route, and auto-escalate across models transparently.",
+  "type": "module",
+  "main": "src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./gate": "./src/quality-gate.mjs",
+    "./router": "./src/router.mjs",
+    "./experiment": "./src/prompt-schema.mjs"
+  },
+  "keywords": [
+    "ai",
+    "quality-gate",
+    "llm",
+    "model-router",
+    "prompt-testing",
+    "ab-testing",
+    "openai",
+    "anthropic",
+    "minimax",
+    "standard-schema"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watthem/proofmark"
+  },
+  "homepage": "https://proofmark.dev",
+  "scripts": {
+    "test": "node --test src/*.test.mjs",
+    "test:prompt": "node --env-file=.env.local scripts/test-prompt.mjs",
+    "test:router": "node --env-file=.env.local scripts/test-router.mjs",
+    "test:experiment": "node --env-file=.env.local scripts/test-experiment.mjs",
+    "test:verticals": "node --env-file=.env.local scripts/run-verticals.mjs",
+    "test:minimax": "node --env-file=.env.local scripts/run-minimax-ab.mjs",
+    "gate": "node --env-file=.env.local verticals/gate/server.mjs",
+    "bench": "node --env-file=.env.local verticals/bench/server.mjs",
+    "docs": "node --env-file=.env.local verticals/docs/server.mjs",
+    "teach": "node --env-file=.env.local verticals/teach/server.mjs",
+    "release": "node scripts/release.mjs",
+    "release:dry": "node scripts/release.mjs --dry-run",
+    "adversarial": "node scripts/codex-adversarial.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@standard-schema/spec": "^1.1.0",
+    "openai": "^4.80.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "author": "Matthew Hendricks <matthew.scott.hendricks@gmail.com> (https://proofmark.dev)",
+  "license": "MIT",
+  "files": [
+    "src/**/*.mjs",
+    "!src/**/*.test.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
