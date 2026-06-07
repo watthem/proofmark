@@ -1,0 +1,2 @@
+# Forage Protocol append-only ledgers
+.forage/ledger/*.ndjson merge=union
