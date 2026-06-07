@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proofmark.dev PII</title>
+  <meta name="description" content="PII-safe local data workflows for TypeScript and JavaScript apps.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0a0a'/><text x='50' y='60' font-size='34' fill='%235eead4' text-anchor='middle' font-family='monospace'>pm</text></svg>">
+  <script defer data-domain="proofmark.dev" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <img class="hero-bg" src="assets/proofmark-dashboard-demo.png" alt="" aria-hidden="true">
+    <div class="hero-shade"></div>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="/" class="brand" aria-label="Proofmark home">
+        <span class="brand-mark">pm</span>
+        <span>
+          <span class="brand-name">proofmark</span>
+          <span class="brand-sub">PII-safe dev data</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#use-cases">Use cases</a>
+        <a href="#proof">Proof</a>
+        <a href="https://github.com/watthem/proofmark" class="nav-button">GitHub</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <div class="eyebrow">TypeScript / JavaScript / Postgres</div>
+      <h1>Proofmark.dev PII</h1>
+      <p class="hero-copy">
+        Stop feeding your frontend toy seed data. Proofmark samples a few
+        production-shaped rows, masks the PII locally, and gives your team a
+        dry-run report before anything gets copied.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary plausible-event-name=Dry+Run+Email" href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark.dev%20PII%20dry%20run">Try a dry run</a>
+        <a class="button button-secondary" href="#proof">See the dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="process" aria-label="Product workflow">
+      <div class="process-grid">
+        <article class="panel">
+          <div class="panel-icon">01</div>
+          <h2>Inspect schema</h2>
+          <p>Read your Prisma schema and show the PII rules before touching rows.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-icon">02</div>
+          <h2>Sample read-only</h2>
+          <p>Pull a small Postgres sample from configured columns without writing to source or target.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-icon">03</div>
+          <h2>Show proof</h2>
+          <p>Show the original sample, masked value, strategy, and certificate status in one place.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="use-cases" class="section split">
+      <div>
+        <div class="section-kicker">where it fits</div>
+        <h2>For frontend teams that outgrew seed.ts.</h2>
+        <p>
+          If your app has real users, it has weird data. Proofmark is for
+          Next.js, React, Prisma, and Postgres teams that need
+          production-shaped records without dragging real people into local
+          development.
+        </p>
+      </div>
+      <div class="signal-list">
+        <div class="signal">Your UI needs believable emails, names, phones, addresses, roles, and dates.</div>
+        <div class="signal">Your seed script is too clean to catch the broken states customers actually create.</div>
+        <div class="signal">Your team wants proof before copied data reaches a laptop or preview database.</div>
+      </div>
+    </section>
+
+    <section class="section section-light split">
+      <div>
+        <div class="section-kicker">same problem</div>
+        <h2>Different apps, same local data mess.</h2>
+        <p>
+          A patient intake form, a billing portal, a student dashboard, a
+          support queue: the labels change. Your frontend still needs data that
+          looks real, and your team still needs the names, emails, phone
+          numbers, tokens, and IDs gone.
+        </p>
+      </div>
+      <div class="defer-box">
+        <h3>Works well for</h3>
+        <ul>
+          <li>Health, wellness, and scheduling apps</li>
+          <li>Billing, account, and support portals</li>
+          <li>Education, marketplace, and operations tools</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="proof" class="section proof-section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">current build</div>
+          <h2>Every dry run shows what changed.</h2>
+        </div>
+        <a class="button button-secondary" href="https://github.com/watthem/proofmark">View repo</a>
+      </div>
+      <figure class="screenshot-frame">
+        <img src="assets/proofmark-dashboard-demo.png" alt="Proofmark dashboard showing dry-run evidence, masked samples, certificate status, and sync logs">
+      </figure>
+    </section>
+
+    <section class="section cli-band">
+      <div>
+        <div class="section-kicker">prototype command</div>
+        <h2>Dry run before anyone syncs.</h2>
+      </div>
+      <pre><code>npm run cli -- pull --dry-run --demo</code></pre>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h2>Bring your messiest table.</h2>
+        <p>Send a schema and one table that makes local testing painful. The dry run should prove the app still works without keeping the real identifiers.</p>
+      </div>
+      <a class="button button-primary plausible-event-name=Dry+Run+Email+Footer" href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark.dev%20PII%20dry%20run">Try a dry run</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <span class="footer-logo">proofmark</span>
+        <p>MIT licensed. Built by Matthew Hendricks.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/watthem/proofmark">GitHub</a>
+        <a href="https://github.com/watthem/proofmark/blob/main/README.md">README</a>
+        <a href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark.dev%20PII%20dry%20run">Dry run</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
