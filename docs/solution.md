@@ -1,3 +1,8 @@
+---
+title: How Proofmark masking works
+description: How Proofmark uses deterministic HMAC-keyed masking to replace PII with realistic fake data while preserving local testing behavior.
+---
+
 # Proofmark Masking: How It Works
 
 Local data masking often fails in one of two ways: it is too fake to test the

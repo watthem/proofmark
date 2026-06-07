@@ -1,3 +1,8 @@
+---
+title: Contributing to Proofmark
+description: Local setup, checks, docs boundaries, and review priorities for contributors working on the Proofmark PII masking CLI.
+---
+
 # Contributing
 
 ## Local Workflow

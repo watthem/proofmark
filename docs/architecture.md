@@ -1,3 +1,8 @@
+---
+title: Proofmark architecture
+description: A contributor overview of Proofmark's local-first dry-run architecture, CLI, Prisma introspection, Postgres sampling, masking, and evidence flow.
+---
+
 # Architecture
 
 Proofmark is currently organized around a local-first dry-run path.

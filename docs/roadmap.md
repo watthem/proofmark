@@ -1,3 +1,8 @@
+---
+title: Roadmap to npm
+description: The Proofmark product roadmap for turning the local Prisma and Postgres dry-run path into an installable npx CLI.
+---
+
 # Roadmap to npm
 
 This is the **product** roadmap: what ships, in what order, on the way to a

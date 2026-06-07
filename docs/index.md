@@ -1,5 +1,7 @@
 ---
 layout: home
+title: PII-safe dev data docs
+description: Local-first PII masking docs for Prisma, Postgres, and TypeScript teams building realistic development data workflows.
 
 hero:
   name: Proofmark

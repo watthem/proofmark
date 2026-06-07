@@ -3,15 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proofmark</title>
-  <meta name="description" content="Production-shaped dev data for Prisma + Postgres, with deterministic masking and a dry-run proof certificate.">
+  <title>Proofmark.dev PII | PII-safe dev data for TypeScript apps</title>
+  <meta name="description" content="Proofmark masks Prisma and Postgres data locally, keeps Next.js dev databases realistic, and prints a dry-run PII proof certificate before data is copied.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#050505">
+  <link rel="canonical" href="https://proofmark.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Proofmark.dev">
+  <meta property="og:title" content="Proofmark.dev PII | PII-safe dev data for TypeScript apps">
+  <meta property="og:description" content="Mask Prisma and Postgres data locally, keep Next.js dev databases realistic, and get a dry-run PII proof certificate before data is copied.">
+  <meta property="og:url" content="https://proofmark.dev/">
+  <meta property="og:image" content="https://proofmark.dev/assets/proofmark-dashboard-demo.png">
+  <meta property="og:image:width" content="1440">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:image:alt" content="Proofmark dashboard showing dry-run PII masking evidence and certificate status">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proofmark.dev PII | PII-safe dev data for TypeScript apps">
+  <meta name="twitter:description" content="Local-first PII masking for Prisma, Postgres, and Next.js teams that need realistic dev data with proof.">
+  <meta name="twitter:image" content="https://proofmark.dev/assets/proofmark-dashboard-demo.png">
+  <link rel="preconnect" href="https://plausible.io">
+  <link rel="preload" as="image" href="assets/proofmark-dashboard-demo.png" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230a0a0a'/><text x='50' y='60' font-size='34' fill='%235eead4' text-anchor='middle' font-family='monospace'>pm</text></svg>">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://proofmark.dev/#website",
+          "url": "https://proofmark.dev/",
+          "name": "Proofmark.dev",
+          "description": "PII-safe local data workflows for TypeScript and JavaScript apps."
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://proofmark.dev/#webpage",
+          "url": "https://proofmark.dev/",
+          "name": "Proofmark.dev PII | PII-safe dev data for TypeScript apps",
+          "description": "Proofmark masks Prisma and Postgres data locally, keeps Next.js dev databases realistic, and prints a dry-run PII proof certificate before data is copied.",
+          "isPartOf": {
+            "@id": "https://proofmark.dev/#website"
+          },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://proofmark.dev/assets/proofmark-dashboard-demo.png",
+            "width": 1440,
+            "height": 1200
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://proofmark.dev/#software",
+          "name": "Proofmark.dev PII",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "macOS, Linux, Windows",
+          "description": "A local-first PII masking CLI for Prisma, Postgres, and TypeScript teams that need realistic development data with auditable dry-run evidence.",
+          "url": "https://proofmark.dev/",
+          "codeRepository": "https://github.com/watthem/proofmark",
+          "softwareHelp": {
+            "@type": "CreativeWork",
+            "url": "https://proofmark.dev/docs/"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          }
+        }
+      ]
+    }
+  </script>
   <script defer data-domain="proofmark.dev" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
 </head>
 <body>
   <header class="hero">
-    <img class="hero-bg" src="assets/proofmark-dashboard-demo.png" alt="" aria-hidden="true">
+    <img class="hero-bg" src="assets/proofmark-dashboard-demo.png" width="1440" height="1200" fetchpriority="high" decoding="async" alt="" aria-hidden="true">
     <div class="hero-shade"></div>
 
     <nav class="nav" aria-label="Primary">
@@ -113,7 +181,7 @@
         <a class="button button-secondary" href="/docs/">Open docs</a>
       </div>
       <figure class="screenshot-frame">
-        <img src="assets/proofmark-dashboard-demo.png" alt="Proofmark dashboard showing dry-run evidence, masked samples, certificate status, and sync logs">
+        <img src="assets/proofmark-dashboard-demo.png" width="1440" height="1200" loading="lazy" decoding="async" alt="Proofmark dashboard showing dry-run evidence, masked samples, certificate status, and sync logs">
       </figure>
     </section>
 
