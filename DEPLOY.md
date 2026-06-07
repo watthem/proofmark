@@ -2,11 +2,19 @@
 
 This repo serves the static marketing site from `site/`.
 
-Deploys are **Git-based** — push to `main` and Cloudflare builds and deploys automatically via the unified Workers & Pages platform.
+Deploys are **Git-based** — push to `main` and Cloudflare deploys automatically
+via the unified Workers & Pages platform.
 
 ## How it works
 
-The repo contains a `wrangler.toml` that configures the Worker to serve `site/` as static assets. On each push, Cloudflare runs `npx wrangler deploy`, which reads that config and publishes the site.
+The repo contains a `wrangler.toml` that configures the Worker to serve `site/`
+as static assets. On each push, Cloudflare runs `npx wrangler deploy`, which
+reads that config and publishes the site.
+
+Cloudflare does **not** run the docs build in this setup. The VitePress source
+lives in `docs/`, and the deployable output lives in `site/docs/`. When docs
+change, run `npm run docs:build` locally and commit the updated `site/docs/`
+files with the source change.
 
 ## Prerequisites
 
@@ -23,6 +31,10 @@ The repo contains a `wrangler.toml` that configures the Worker to serve `site/` 
 | Non-production branch deploy command | `npx wrangler deploy` |
 | Path | `site` |
 | Production branch | `main` |
+
+Because the build command is blank, `site/docs/` is intentionally checked in.
+Do not add it to `.gitignore` unless the Cloudflare project is changed to run
+`npm run docs:build` before `npx wrangler deploy`.
 
 ### `wrangler.toml` (in repo root)
 

@@ -42,8 +42,13 @@ npm run dashboard:build
 
 ## Docs Boundary
 
-Repo docs are for contributors and maintainers. Do not add stakeholder decks,
-customer discovery notes, pricing, positioning, or market strategy to this repo.
+Repo docs are for contributors and maintainers. Keep private stakeholder decks,
+customer discovery notes, pricing, positioning, and market strategy out of this
+repo.
+
+The root `DECK.md` is the exception: it is a public forwarding deck for the
+current product story, and it should link back to canonical docs instead of
+copying implementation details.
 
 Use `/home/watthem/Vaults/projects/proofmark` for internal business material.
 

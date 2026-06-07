@@ -5,11 +5,17 @@ This folder is the static proofmark.dev deploy surface.
 Use it for:
 
 - public landing-page HTML and CSS
+- generated VitePress docs under `docs/`
 - static product images used by the landing page
 - durable review screenshots under `assets/screenshots/`
 
-Do not use it for internal strategy, customer discovery notes, pricing drafts,
-or stakeholder decks. Those belong in the Proofmark vault.
+`site/docs/` is generated output, but it is intentionally checked in because the
+current Cloudflare deploy serves `site/` directly and does not run a build step.
+After editing source docs in `../docs`, run `npm run docs:build` from the repo
+root and commit the generated `site/docs/` changes.
+
+Do not use this folder for internal strategy, customer discovery notes, pricing
+drafts, or private stakeholder decks. Those belong in the Proofmark vault.
 
 ## Local Preview
 
