@@ -50,7 +50,7 @@ describe('sync evidence prototype data', () => {
     assert.equal(data.certificate.passed, true)
   })
 
-  it('fails the zero-PII certificate if a masked value contains the source value', () => {
+  it('fails the proof certificate if a masked value contains the source value', () => {
     const certificate = createZeroPiiCertificate([
       {
         tableName: 'users',

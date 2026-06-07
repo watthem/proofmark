@@ -54,7 +54,7 @@ function printDryRunReport(data: SyncDashboardData): void {
   printEvidenceTable(data.dryRunEvidence)
 
   console.log('')
-  console.log(pc.bold('Zero PII certificate'))
+  console.log(pc.bold('Proofmark Certificate'))
   const status = data.certificate.passed ? pc.green('PASS') : pc.red('FAIL')
   console.log(`${status} ${data.certificate.summary}`)
   console.log(
