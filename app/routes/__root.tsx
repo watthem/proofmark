@@ -17,11 +17,11 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      { title: 'Proofmark.dev PII' },
+      { title: 'Proofmark' },
       {
         name: 'description',
         content:
-          'PII-safe local data workflows for TypeScript and JavaScript apps.',
+          'Production-shaped dev data for Prisma + Postgres, with deterministic masking and a dry-run proof certificate.',
       },
     ],
     links: [{ rel: 'stylesheet', href: appCss }],

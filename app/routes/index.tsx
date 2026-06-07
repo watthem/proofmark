@@ -9,16 +9,16 @@ import {
 } from 'lucide-react'
 
 const fitSignals = [
-  'Your UI needs believable emails, names, phones, addresses, roles, and dates.',
-  'Your seed script is too clean to catch the broken states customers actually create.',
-  'Your team wants proof before copied data reaches a laptop or preview database.',
+  'Your UI needs believable names, emails, phones, roles, and dates.',
+  'Your seed script misses the broken states customers create.',
+  'Your team wants evidence before copied data reaches a laptop or preview database.',
 ] as const
 
 const steps = [
   {
     icon: Database,
     title: 'Inspect schema',
-    text: 'Read your Prisma schema and show the PII rules before touching rows.',
+    text: 'Read your Prisma schema and show masking rules before touching rows.',
   },
   {
     icon: ShieldCheck,
@@ -27,15 +27,16 @@ const steps = [
   },
   {
     icon: FileCheck2,
-    title: 'Show proof',
-    text: 'Show the original sample, masked value, strategy, and certificate status in one place.',
+    title: 'Certify the copy',
+    text: 'Print the original sample, masked value, strategy, and certificate status in one report.',
   },
 ] as const
 
-const exampleApps = [
-  'Health, wellness, and scheduling apps',
-  'Billing, account, and support portals',
-  'Education, marketplace, and operations tools',
+const currentScope = [
+  'Prisma schema discovery',
+  'Read-only Postgres sampling',
+  'Deterministic masking',
+  'Dry-run proof certificate',
 ] as const
 
 export const Route = createFileRoute('/')({
@@ -65,7 +66,7 @@ function SiteHome() {
         </div>
       </section>
 
-      <section id="use-cases" className="px-4 py-16 sm:px-6 lg:px-8">
+      <section id="fit" className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <div className="inline-flex items-center gap-2 rounded-md border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-200">
@@ -77,9 +78,8 @@ function SiteHome() {
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-neutral-400">
               If your app has real users, it has weird data. Proofmark is for
-              Next.js, React, Prisma, and Postgres teams that need
-              production-shaped records without dragging real people into local
-              development.
+              Next.js, Prisma, and Postgres teams that need production-shaped
+              records without dragging real people into local development.
             </p>
           </div>
 
@@ -103,29 +103,28 @@ function SiteHome() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-teal-700">
-              same problem
+              scope
             </div>
             <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">
-              Different apps, same local data mess.
+              Narrow enough to trust.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-neutral-700">
-              A patient intake form, a billing portal, a student dashboard, a
-              support queue: the labels change. Your frontend still needs data
-              that looks real, and your team still needs the names, emails,
-              phone numbers, tokens, and IDs gone.
+              The alpha path is Prisma + Postgres, read-only dry run. Write
+              mode, non-Prisma adapters, and broader database support are
+              planned only after the proof path is reliable.
             </p>
           </div>
           <div className="rounded-md border border-neutral-300 bg-white p-5">
             <div className="text-sm font-semibold text-neutral-950">
-              Works well for
+              Today
             </div>
             <div className="mt-4 grid gap-3">
-              {exampleApps.map((market) => (
+              {currentScope.map((item) => (
                 <div
-                  key={market}
+                  key={item}
                   className="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-700"
                 >
-                  {market}
+                  {item}
                 </div>
               ))}
             </div>
@@ -133,15 +132,15 @@ function SiteHome() {
         </div>
       </section>
 
-      <section id="demo" className="px-4 py-16 sm:px-6 lg:px-8">
+      <section id="certificate" className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <div className="font-mono text-xs uppercase tracking-[0.18em] text-teal-300">
-                current build
+                proof artifact
               </div>
               <h2 className="mt-4 text-3xl font-semibold text-neutral-50 sm:text-4xl">
-                Every dry run shows what changed.
+                The certificate is the point.
               </h2>
             </div>
             <a
@@ -175,7 +174,7 @@ function SiteHome() {
             </p>
           </div>
           <a
-            href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark.dev%20PII%20dry%20run"
+            href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark%20dry%20run"
             className="inline-flex w-fit items-center gap-2 rounded-md bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-white"
           >
             Try a dry run
@@ -208,16 +207,16 @@ function Hero() {
               proofmark
             </span>
             <span className="block text-xs text-neutral-400">
-              PII-safe dev data
+              proof-backed dev data
             </span>
           </span>
         </a>
         <nav className="flex items-center gap-2">
           <a
-            href="#use-cases"
+            href="#fit"
             className="hidden rounded-md px-3 py-2 text-sm font-medium text-neutral-300 transition hover:text-white sm:inline-flex"
           >
-            Use cases
+            Fit
           </a>
           <a
             href="/dashboard"
@@ -233,29 +232,29 @@ function Hero() {
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-200">
             <TerminalSquare className="size-3.5" />
-            TypeScript / JavaScript / Postgres
+            Next.js / Prisma / Postgres
           </div>
           <h1 className="mt-6 text-5xl font-semibold text-neutral-50 sm:text-6xl lg:text-7xl">
-            Proofmark.dev PII
+            Proofmark
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-200">
-            Stop feeding your frontend toy seed data. Proofmark samples a few
-            production-shaped rows, masks the PII locally, and gives your team a
-            dry-run report before anything gets copied.
+            Production-shaped dev data. PII-safe by proof, not promise. Pull a
+            small Postgres sample, mask detected PII locally, and get a dry-run
+            proof certificate before anything is copied.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark.dev%20PII%20dry%20run"
+              href="mailto:matthew.scott.hendricks@gmail.com?subject=Proofmark%20dry%20run"
               className="inline-flex items-center justify-center gap-2 rounded-md bg-neutral-100 px-4 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-white"
             >
               Try a dry run
               <ArrowRight className="size-4" />
             </a>
             <a
-              href="#demo"
+              href="#certificate"
               className="inline-flex items-center justify-center gap-2 rounded-md border border-neutral-600 bg-neutral-950/70 px-4 py-3 text-sm font-semibold text-neutral-100 transition hover:border-neutral-400"
             >
-              See the dashboard
+              View proof certificate
             </a>
           </div>
         </div>

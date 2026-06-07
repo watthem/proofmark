@@ -11,6 +11,8 @@ materials, pricing, and positioning in `/home/watthem/Vaults/projects/proofmark`
 - [Architecture](architecture.md): implementation boundaries and tech choices.
 - [Contributing](contributing.md): local workflow, testing, and review norms.
 - [Deploy Notes](DEPLOY.md): deployment-specific notes.
+- [Public Deck](../DECK.md): forwarding narrative; links back to docs instead
+  of restating implementation detail.
 - `workflow/`: implementation logs and verification notes for engineering work.
 
 ## What Belongs Here
@@ -24,7 +26,7 @@ materials, pricing, and positioning in `/home/watthem/Vaults/projects/proofmark`
 
 ## What Does Not Belong Here
 
-- Stakeholder decks.
+- Private stakeholder decks.
 - Customer discovery notes.
 - Market positioning.
 - Pricing or packaging strategy.

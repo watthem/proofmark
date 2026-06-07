@@ -1,15 +1,14 @@
 # Proofmark
 
-**Pull production data to your local machine with zero PII.**
+**Production-shaped dev data. PII-safe by proof, not promise.**
 
-Proofmark is a local-first CLI for PII-safe development data. It reads your
-Prisma schema, samples Postgres read-only, and masks configured fields with
-HMAC-keyed deterministic fake data — so the same input always maps to the same
-output across every table. You get referential integrity without ever storing a
-real-to-fake lookup table.
+Proofmark is a local-first CLI for Prisma + Postgres teams. It reads your
+Prisma schema, samples Postgres read-only, masks configured fields with
+HMAC-keyed deterministic fake data, and prints a dry-run proof certificate
+before anything is copied into development.
 
-Everyone says their data is safe. Proofmark shows you: every dry run prints the
-exact masking applied to each field, plus a zero-PII certificate.
+Everyone says "safe." Proofmark shows the evidence: every dry run prints the
+field, strategy, original sample, masked value, and certificate status.
 
 ## Status
 
@@ -18,7 +17,7 @@ Alpha. The supported path today is **Prisma + Postgres, dry-run**:
 - Prisma schema discovery and masking-rule inference
 - read-only Postgres sampling
 - HMAC-keyed deterministic masking (fails closed without a workspace seed)
-- CLI evidence output with a zero-PII certificate
+- CLI evidence output with a Proofmark Certificate
 
 Write/seed mode is planned, not shipped. Requires Node >= 20.6.
 
@@ -73,7 +72,9 @@ security model, including what a leaked seed does and does not expose.
 
 ## Docs
 
+- [Stakeholder deck](DECK.md)
 - [How masking works](docs/solution.md)
+- [Roadmap to npm](docs/roadmap.md)
 - [Architecture](docs/architecture.md)
 - [Contributing](docs/contributing.md)
 

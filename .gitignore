@@ -5,6 +5,7 @@ data/
 dist/
 *.tgz
 docs/internal/
+docs/.vitepress/cache/
 
 # Local agent tooling — generated per machine, not part of the product
 .claude/

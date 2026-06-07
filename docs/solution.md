@@ -1,11 +1,12 @@
 # Proofmark Masking: How It Works
 
-Most data anonymization tools are black boxes. You feed in real data, something happens,
-fake data comes out. You have no idea what "something" is — and neither does your auditor.
+Local data masking often fails in one of two ways: it is too fake to test the
+app, or too opaque to trust. You get replacement values back, but not much
+evidence about how they were produced.
 
-Proofmark is different. Every masking operation is deterministic, transparent, and reproducible
-only by the team that owns the project seed. This document describes exactly what happens,
-step by step, with real code.
+Proofmark makes the dry run inspectable. Every masking operation is
+deterministic, transparent, and reproducible by the team that owns the project
+seed. This document describes what happens, step by step, with real code.
 
 ---
 
@@ -27,7 +28,7 @@ Without that, your local database has broken referential integrity and is useles
 
 ---
 
-## Our guarantee
+## What Proofmark guarantees
 
 1. **Stateless.** We never store a mapping from real to fake values. No lookup table, no database,
    no file on disk.
@@ -35,8 +36,8 @@ Without that, your local database has broken referential integrity and is useles
 2. **Consistent.** The same real value always produces the same fake value, across every table,
    every column, every run — as long as the project seed doesn't change.
 
-3. **Secure.** The mapping is keyed with your `PROOFMARK_WORKSEED`. Without it, you cannot
-   reverse-engineer a real value from a fake one, even for common inputs like
+3. **Keyed.** The mapping uses your `PROOFMARK_WORKSEED`. Without the seed, an
+   attacker cannot reproduce the mapping for common inputs like
    `"jane@company.com"`.
 
 4. **Transparent.** You can see exactly which `faker` method runs for each field, and you can
@@ -48,8 +49,8 @@ Without that, your local database has broken referential integrity and is useles
 
 ### Step 1: The project seed
 
-When you run `npx proofmark init`, a random 32-byte seed is generated and written to your
-local `.env`:
+When you run `proofmark init` (or `npm run cli -- init` from this repo), a
+random 32-byte seed is generated and written to your local `.env`:
 
 ```
 PROOFMARK_WORKSEED=a3f9c2e1b4d8...  # 64-character hex string
@@ -73,9 +74,10 @@ const hash = createHmac('sha256', projectSeed)
 // → e.g. "a3f9c2e1b4d87f2a..."  (64 hex chars)
 ```
 
-The HMAC is a one-way function. Given `hash` and `realValue`, you cannot recover `projectSeed`.
-Given `hash` and `projectSeed`, you cannot recover `realValue`. The only way to produce the
-same `hash` is to have both the original `realValue` and the `projectSeed`.
+The HMAC is a one-way function. Given `hash` and `realValue`, you cannot recover
+`projectSeed`. Given `hash` and `projectSeed`, there is no direct inverse for
+`realValue`; for guessable values, an attacker can still test candidates. The
+security model below covers that case.
 
 ### Step 3: Derive an integer seed for the PRNG
 
@@ -154,9 +156,10 @@ Faker.seed([n1, n2, n3, n4])   → deterministic state
 faker.internet.email()         → "aurora.hayes@example.com"
 ```
 
-The HMAC is a pure function. Same input + same seed = same hash = same numeric seeds =
-same Faker state = same output. **Always.** The two rows will both mask to
-`"aurora.hayes@example.com"` without us ever consulting a lookup table.
+The HMAC is a pure function. Same input + same seed + same strategy + same Faker
+version = same hash = same numeric seeds = same Faker state = same output. The
+two rows will both mask to `"aurora.hayes@example.com"` without Proofmark ever
+consulting a lookup table.
 
 ---
 
