@@ -40,6 +40,24 @@ npm test
 npm run dashboard:build
 ```
 
+## Docs Site Freshness
+
+The VitePress docs are built into `site/docs/`, which is committed because the
+Cloudflare deploy serves `./site` directly with no build step. After editing any
+source under `docs/`, rebuild and commit the output:
+
+```bash
+npm run docs:build
+git add site/docs
+```
+
+`npm run docs:check` rebuilds and fails if `site/docs/` has drifted from source.
+A pre-push hook runs it automatically — enable it once per clone with:
+
+```bash
+git config core.hooksPath scripts/hooks
+```
+
 ## Docs Boundary
 
 Repo docs are for contributors and maintainers. Keep private stakeholder decks,
