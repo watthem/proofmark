@@ -64,6 +64,24 @@ npm run cli -- pull --dry-run
 The dry run is read-only against the source database. Demo evidence is explicit
 only through `--demo` or `PROOFMARK_DEMO=1`.
 
+## Coming from Snaplet or Neosync?
+
+Both shut down — [Snaplet](https://www.snaplet.dev/post/snaplet-is-shutting-down)
+in 2024 and [Neosync](https://github.com/nucleuscloud/neosync) archived in 2025 —
+and teams still need production-shaped local data without the PII.
+
+Proofmark is built for the same job, with a narrower, honest scope today:
+
+- **Like them:** deterministic, referentially-consistent masking — the same input
+  maps to the same fake value across tables, so foreign keys don't break.
+- **Different:** stateless by design (no real-to-fake lookup table to leak), and
+  every run emits a proof certificate you can read.
+- **Not yet:** Proofmark is dry-run only right now — it shows what it *would*
+  write. Write/seed mode is on the [roadmap](docs/roadmap.md), not shipped.
+
+If you used Snaplet or Neosync purely to seed a local database, Proofmark isn't a
+drop-in replacement yet — but the masking core is here, and seeding is next.
+
 ## How Masking Works
 
 Masking is deterministic, transparent, and stateless — no real-to-fake values are
