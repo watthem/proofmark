@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int           @id @default(autoincrement())
+  email            String        @unique
+  firstName        String        @map("first_name")
+  lastName         String        @map("last_name")
+  phoneNumber      String?       @map("phone_number")
+  passwordHash     String        @map("password_hash")
+  stripeCustomerId String?       @map("stripe_customer_id")
+  role             String
+  createdAt        DateTime      @map("created_at")
+  appointments     Appointment[]
+
+  @@map("users")
+}
+
+model Appointment {
+  id            Int       @id @default(autoincrement())
+  userId        Int       @map("user_id")
+  user          User      @relation(fields: [userId], references: [id])
+  intakeEmail   String?   @map("intake_email")
+  contactPhone  String?   @map("contact_phone")
+  streetAddress String?   @map("street_address")
+  notes         String?
+  scheduledAt   DateTime? @map("scheduled_at")
+
+  @@map("appointments")
+}

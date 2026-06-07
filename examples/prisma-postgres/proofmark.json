@@ -1,0 +1,28 @@
+{
+  "$schema": "https://proofmark.dev/schema.json",
+  "project": "proofmark-prisma-postgres-example",
+  "database": {
+    "orm": "prisma",
+    "schemaPath": "./prisma/schema.prisma",
+    "sourceUrl": "process.env.PROOFMARK_EXAMPLE_DATABASE_URL",
+    "targetUrl": ""
+  },
+  "masking": {
+    "User": {
+      "email": "faker.internet.email",
+      "firstName": "faker.person.firstName",
+      "lastName": "faker.person.lastName",
+      "phoneNumber": "faker.phone.number",
+      "passwordHash": {
+        "strategy": "static",
+        "value": "$2b$10$proofmarkLOCALDEVHASHPLACEHOLDER"
+      },
+      "stripeCustomerId": "scramble"
+    },
+    "Appointment": {
+      "intakeEmail": "faker.internet.email",
+      "contactPhone": "faker.phone.number",
+      "streetAddress": "faker.location.streetAddress"
+    }
+  }
+}
