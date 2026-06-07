@@ -1,0 +1,13 @@
+node_modules/
+.env.local
+.env
+data/
+dist/
+*.tgz
+docs/internal/
+
+# Local agent tooling — generated per machine, not part of the product
+.claude/
+.agents/
+.gemini/
+.forage/

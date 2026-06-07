@@ -1,0 +1,94 @@
+# Proofmark
+
+**Pull production data to your local machine with zero PII.**
+
+Proofmark is a local-first CLI for PII-safe development data. It reads your
+Prisma schema, samples Postgres read-only, and masks configured fields with
+HMAC-keyed deterministic fake data — so the same input always maps to the same
+output across every table. You get referential integrity without ever storing a
+real-to-fake lookup table.
+
+Everyone says their data is safe. Proofmark shows you: every dry run prints the
+exact masking applied to each field, plus a zero-PII certificate.
+
+## Status
+
+Alpha. The supported path today is **Prisma + Postgres, dry-run**:
+
+- Prisma schema discovery and masking-rule inference
+- read-only Postgres sampling
+- HMAC-keyed deterministic masking (fails closed without a workspace seed)
+- CLI evidence output with a zero-PII certificate
+
+Write/seed mode is planned, not shipped. Requires Node >= 20.6.
+
+## Quick Start
+
+```bash
+npm install
+npm run cli -- --help
+npm run cli -- pull --dry-run --demo
+```
+
+## Example Project
+
+Run against a real Prisma/Postgres database without wiring Proofmark into an
+existing app:
+
+```bash
+npm run build:cli
+cd examples/prisma-postgres
+cp .env.example .env
+docker compose up -d --wait
+node ../../dist/cli/bin/cli.js pull --dry-run
+```
+
+See [examples/prisma-postgres](examples/prisma-postgres/README.md) for the full
+walkthrough.
+
+## Use It In Your Project
+
+Generate `proofmark.json` from your schema:
+
+```bash
+npm run cli -- init --schema ./prisma/schema.prisma
+```
+
+`init` also writes a `PROOFMARK_WORKSEED` to `.env` (gitignored) — the HMAC key
+that makes masking deterministic. Set the database environment variables
+referenced in `proofmark.json`, then:
+
+```bash
+npm run cli -- pull --dry-run
+```
+
+The dry run is read-only against the source database. Demo evidence is explicit
+only through `--demo` or `PROOFMARK_DEMO=1`.
+
+## How Masking Works
+
+Masking is deterministic, transparent, and stateless — no real-to-fake values are
+ever stored. See [docs/solution.md](docs/solution.md) for the full algorithm and
+security model, including what a leaked seed does and does not expose.
+
+## Docs
+
+- [How masking works](docs/solution.md)
+- [Architecture](docs/architecture.md)
+- [Contributing](docs/contributing.md)
+
+## Experimental
+
+An optional TanStack Start dashboard visualizes evidence state. It is a prototype
+(currently sample data) and is not part of the CLI workflow:
+
+```bash
+npm run dashboard:dev
+```
+
+## Verification
+
+```bash
+npm run check
+npm test
+```
